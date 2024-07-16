@@ -1,8 +1,12 @@
 package io.dev.med.webhook.connector.domain.port.out;
 
+import com.stripe.model.Balance;
+import com.stripe.model.Charge;
 import com.stripe.model.PaymentIntent;
 import com.stripe.model.Payout;
 import io.dev.med.webhook.connector.domain.port.in.WebhookProcessor;
+import io.dev.med.webhook.connector.infrastructure.adapter.out.BalanceWebhookProcessor;
+import io.dev.med.webhook.connector.infrastructure.adapter.out.ChargeWebhookProcessor;
 import io.dev.med.webhook.connector.infrastructure.adapter.out.PaymentIntentWebhookProcessor;
 import io.dev.med.webhook.connector.infrastructure.adapter.out.PayoutWebhookProcessor;
 
@@ -17,6 +21,8 @@ public class EventProcessorFactory {
     public EventProcessorFactory() {
         processors.put(PaymentIntent.class, PaymentIntentWebhookProcessor::new);
         processors.put(Payout.class, PayoutWebhookProcessor::new);
+        processors.put(Charge.class, ChargeWebhookProcessor::new);
+        processors.put(Balance.class, BalanceWebhookProcessor::new);
     }
 
     @SuppressWarnings("unchecked")
